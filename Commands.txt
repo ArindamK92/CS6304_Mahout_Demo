@@ -1,0 +1,15 @@
+//see this link to know about the parameters of the "kmean" commands
+https://mahout.apache.org/users/clustering/k-means-commandline.html
+//see this link to know about the distance measures
+https://subscription.packtpub.com/book/big_data_and_business_intelligence/9781783284436/1/ch01lvl1sec09/understanding-distance-measures
+
+
+hadoop fs -mkdir input
+hadoop fs -copyFromLocal '/home/cloudera/workspace/Mahout_Demo/seqfile' input
+
+mahout seqdumper -i input/seqfile|less
+mahout seqdumper -i input/seqfile
+
+mahout kmeans -i input/seqfile -c cluster -o output -x 5 -k 3 -ow -cl -cd 1 -dm org.apache.mahout.common.distance.EuclideanDistanceMeasure
+
+mahout clusterdump -i output/cluster-1-final -p output/clusterdPoints -o '/home/cloudera/workspace/Mahout_Demo/output.txt
