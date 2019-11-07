@@ -12,4 +12,4 @@ mahout seqdumper -i input/seqfile
 
 mahout kmeans -i input/seqfile -c cluster -o output -x 5 -k 3 -ow -cl -cd 1 -dm org.apache.mahout.common.distance.EuclideanDistanceMeasure
 
-mahout clusterdump -i output/cluster-1-final -p output/clusterdPoints -o '/home/cloudera/workspace/Mahout_Demo/output.txt
+mahout clusterdump -i output/cluster-4-final -p output/clusterdPoints -o '/home/cloudera/workspace/Mahout_Demo/output.txt
