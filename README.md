@@ -1,32 +1,29 @@
 # Mahout_Demo
 
-### Importing Project:
-* Open “eclipse”, right click on “Package Explorer” window, click import.
-* Select “Git”-> “Projects from Git” and click “next”.
-* Select “clone url” and click “next”.
-* Paste “https://github.com/shudipdatta/Mahout_Demo.git” in the “url” textbox, Change protocol to “git”, and click “next”. 
-* Choose “Import existing project” and click “finish”.
+## Install Mahout  (Do it one time only)
+#Let us consider java is already installed. (If not, install it)  
 
-### Referencing libraries:
-* Right click on project and select “build path”-> “configure build path” ->”libraries”->”add external jars”.
-* Go to "usr->lib->mahout and select all jars
-* Go to "usr->lib->hadoop and select all jars
-* Go to "usr->lib->hadoop->lib and select all jars and click "ok"
+###Install maven  
+sudo apt-get install maven    
+#check the version using 'mvn -v'  
 
-### General Information (Cloudera):
+###Install svn  
+sudo apt-get install subversion  
+#check the version using 'svn --version'  
 
-* Operating System:         Mac -> Microsoft Remote Desktop, Windows -> Default Remote Desktop, Ubuntu -> Remmina
-* Machine:                  cqs-cs6304-xxx.ats.mst.edu
-* User:                     cloudera
-* Default Password:         stu-pass
-* Change Password Command:  sudo passwd cloudera
+###Install mahout   
+#open a terminal   
+mkdir mahout   
+cd mahout/   
+svn co http://svn.apache.org/repos/asf/mahout/trunk   
+cd trunk/   
+mvn compile  
+mvn -DskipTests   
 
-* "Firefox already running" error solve by command:     killall -SIGTERM firefox
+### Before running mahout on terminal do EVERYTIME (because we are not setting in .bashrc or profile.d:  
+export MAHOUT_LOCAL=TRUE   
+export MAHOUT_HEAPSIZE=1000    
+export MAHOUT_HOME=/home/akkcm/mahout/trunk  
+export PATH=$PATH:$MAHOUT_HOME/bin    
 
-* "Eclipse resource is out of sync" error solve by:
-* Windows -> Preferences -> General -> Workspace
-* Check "Refresh using native tool or polling"
 
-* "ConnectionRefused" error solve by following haddop commands:
-* sudo /sbin/service hadoop-hdfs-namenode restart
-* sudo /sbin/service hadoop-hdfs-datanode restart
