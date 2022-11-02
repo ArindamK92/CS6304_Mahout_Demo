@@ -20,7 +20,7 @@ cd trunk/
 mvn compile  
 mvn -DskipTests   
 
-### Before running mahout on terminal do EVERYTIME (because we are not setting in .bashrc or profile.d:  
+### Before running mahout on terminal do EVERYTIME (because we are not setting in .bashrc or profile.d):  
 export MAHOUT_LOCAL=TRUE   
 export MAHOUT_HEAPSIZE=1000    
 export MAHOUT_HOME=/home/akkcm/mahout/trunk  

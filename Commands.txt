@@ -1,16 +1,21 @@
-export MAHOUT_LOCAL=TRUE
-export MAHOUT_HEAPSIZE=1000
-export MAHOUT_HOME=/home/akkcm/mahout/trunk
-export PATH=$PATH:$MAHOUT_HOME/bin
+export MAHOUT_LOCAL=TRUE  
+export MAHOUT_HEAPSIZE=1000  
+export MAHOUT_HOME=/home/akkcm/mahout/trunk  
+export PATH=$PATH:$MAHOUT_HOME/bin  
 
-mahout seqdirectory -i '/home/akkcm/Downloads/test_mahout/input' -o '/home/akkcm/Downloads/test_mahout/seq'
+### Convert dataset into SequenceFiles (https://hadoop.apache.org/docs/stable/api/org/apache/hadoop/io/SequenceFile.html):  
+mahout seqdirectory -i '/home/akkcm/Downloads/CS6304_Mahout_Demo-master/input'  -o '/home/akkcm/Downloads/CS6304_Mahout_Demo-master/seq'   
 
-mahout seqdumper -i '/home/akkcm/Downloads/test_mahout/seq/part-m-00000'
+mahout seqdumper -i '/home/akkcm/Downloads/CS6304_Mahout_Demo-master/seq/part-m-00000'  
 
-mahout seq2sparse -nv -i '/home/akkcm/Downloads/test_mahout/seq/part-m-00000' -o '/home/akkcm/Downloads/test_mahout/vec'
+### Convert SequenceFiles into sparse vector file format (https://en.wikipedia.org/wiki/Tf%E2%80%93idf):  
+mahout seq2sparse -nv -i '/home/akkcm/Downloads/CS6304_Mahout_Demo-master/seq/part-m-00000'  -o '/home/akkcm/Downloads/CS6304_Mahout_Demo-master/vec'  
 
-mahout canopy -i '/home/akkcm/Downloads/test_mahout/vec/tfidf-vectors/part-r-00000' -o '/home/akkcm/Downloads/test_mahout/centroid_init' -dm org.apache.mahout.common.distance.CosineDistanceMeasure -t1 10 -t2 20
+### Get the initial centroids using canopy clustering (https://mahout.apache.org/docs/latest/algorithms/clustering/canopy/):  
+mahout canopy -i '/home/akkcm/Downloads/CS6304_Mahout_Demo-master/vec/tfidf-vectors/part-r-00000'  -o '/home/akkcm/Downloads/CS6304_Mahout_Demo-master/centroid_init'  -dm org.apache.mahout.common.distance.CosineDistanceMeasure -t1 10 -t2 20  
 
-mahout kmeans -i '/home/akkcm/Downloads/test_mahout/vec/tfidf-vectors/part-r-00000'  -c '/home/akkcm/Downloads/test_mahout/centroid_init/clusters-0-final/part-r-00000'  -o '/home/akkcm/Downloads/test_mahout/out_raw' -x 5 -k 3 -ow -cl -cd 1 -dm org.apache.mahout.common.distance.CosineDistanceMeasure
+### Run k-means clustering (http://svn.apache.org/repos/asf/mahout/site/new_website/MAHOUT/k-means-clustering.html?p=1244779):  
+mahout kmeans -i '/home/akkcm/Downloads/CS6304_Mahout_Demo-master/vec/tfidf-vectors/part-r-00000'   -c '/home/akkcm/Downloads/CS6304_Mahout_Demo-master/centroid_init/clusters-0-final/part-r-00000' -o '/home/akkcm/Downloads/CS6304_Mahout_Demo-master/out_raw' -x 5 -k 3 -ow -cl -cd 1 -dm org.apache.mahout.common.distance.CosineDistanceMeasure  
 
-mahout clusterdump -i '/home/akkcm/Downloads/test_mahout/out_raw/clusters-1-final/part-r-00000'  -p '/home/akkcm/Downloads/test_mahout/out_raw/clusteredPoints'  -o '/home/akkcm/Downloads/test_mahout/out.txt'
+### Get the clustering results:  
+mahout clusterdump -i '/home/akkcm/Downloads/CS6304_Mahout_Demo-master/out_raw/clusters-1-final/part-r-00000'   -p '/home/akkcm/Downloads/CS6304_Mahout_Demo-master/out_raw/clusteredPoints' -o '/home/akkcm/Downloads/CS6304_Mahout_Demo-master/out.txt'  
